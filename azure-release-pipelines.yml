@@ -1,0 +1,11 @@
+steps:
+- task: DownloadPipelineArtifact@2
+  displayName: 'Download Pipeline Artifact'
+  inputs:
+    targetPath: '$(System.DefaultWorkingDirectory)/_b2c-pipeline-demo'
+
+# $env must be declared as variables
+steps:
+- powershell: '.\drop\scripts\deploy-to-b2c.ps1 -TenantName $env:B2CTENANTNAME -AppId $env:CLIENTCREDAPPID -AppKey $env:CLIENTCREDAPPKEY -PolicyPath .\drop\policies'
+  workingDirectory: '$(System.DefaultWorkingDirectory)/_b2c-pipeline-demo'
+  displayName: 'PowerShell Script'
